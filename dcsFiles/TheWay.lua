@@ -1,5 +1,6 @@
 log.write("THEWAY", log.INFO, "Initializing V2.4.2")
 local tcpServer                        = nil
+local tcpPort                          = nil
 local udpSpeaker                       = nil
 package.path                           = package.path .. ";" .. lfs.currentdir() .. "/LuaSocket/?.lua"
 package.cpath                          = package.cpath .. ";" .. lfs.currentdir() .. "/LuaSocket/?.dll"
@@ -28,9 +29,12 @@ function LuaExportStart()
     udpSpeaker = socket.udp()
     udpSpeaker:settimeout(0)
     tcpServer = socket.tcp()
-    tcpServer:bind("127.0.0.1", 42070)
+    tcpServer:bind("127.0.0.1", 0)
     tcpServer:listen(1)
     tcpServer:settimeout(0)
+
+    local ip, port = tcpServer:getsockname()
+    tcpPort = port
 
     crosshair = DialogLoader.spawnDialogFromFile(
         lfs.writedir() .. "Scripts\\TheWay\\Crosshair.dlg"
@@ -145,6 +149,7 @@ function LuaExportAfterNextFrame()
     message["coords"]["lat"] = tostring(coords.latitude)
     message["coords"]["long"] = tostring(coords.longitude)
     message["elev"] = tostring(elevation)
+    message["port"] = tcpPort
     local toSend = JSON:encode(message)
 
     if pcall(function()

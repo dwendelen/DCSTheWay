@@ -49,7 +49,7 @@ const useElectronIpcListeners = () => {
     ipcRenderer.on(
       "dataReceived",
       throttle((event, msg) => {
-        dispatch(dcsPointActions.changeCoords(JSON.parse(msg)));
+        dispatch(dcsPointActions.changeCoords(msg));
       }, 100),
     );
 
