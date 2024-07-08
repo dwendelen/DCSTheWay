@@ -43,6 +43,10 @@ function App() {
     ipcRenderer.send("messageToDcs", commands);
   }, [dcsWaypoints, module, userPreferences]);
 
+  const handleAbort = useCallback(async() => {
+    ipcRenderer.send("messageToDcs", { type: "abort" });
+  }, []);
+
   const handleFileSave = useCallback(() => {
     ipcRenderer.send("saveFile", JSON.stringify(dcsWaypoints));
   }, [dcsWaypoints]);
@@ -121,6 +125,7 @@ function App() {
         <Box sx={{ height: "15%" }}>
           <TransferControls
             onTransfer={handleTransfer}
+            onAbort={handleAbort}
             onSaveFile={handleFileSave}
           />
         </Box>
