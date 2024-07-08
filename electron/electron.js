@@ -52,7 +52,7 @@ if (!isTheOnlyInstance) {
     createWindow();
     udpListener = new UDPListener(mainWindow);
     fileHandler = new FileHandler(mainWindow);
-    udpSender = new UDPSender();
+    udpSender = new UDPSender(udpListener);
     userPreferenceHandler = new UserPreferenceHandler(
       mainWindow,
       applyElectronPreferences,
