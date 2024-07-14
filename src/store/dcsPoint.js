@@ -7,7 +7,7 @@ const dcsPointSlice = createSlice({
   initialState,
   reducers: {
     changeCoords(state, action) {
-      // { "model": "F-16C_50", "coords": { "lat": "41.905925545347", "long": "43.783457188399"} , "elev": "1677.6647949219"}
+      // { "model": "F-16C_50", "coords": { "lat": "41.905925545347", "long": "43.783457188399"} , "elev": "1677.6647949219", "busy": false}
       state.module = action.payload.model;
       state.lat = Number(action.payload.coords.lat);
       state.long = Number(action.payload.coords.long);
